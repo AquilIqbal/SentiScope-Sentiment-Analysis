@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow-sm border-0 rounded-4">
+          <div class="card-body p-4 p-lg-5 text-center">
+            <span class="badge rounded-pill bg-primary-subtle text-primary mb-3">Feature In Progress</span>
+            <h1 class="h3 fw-bold mb-3">Bulk CSV Analysis</h1>
+            <p class="text-muted mb-4">This experience is being prepared to support large-scale review uploads and multi-file sentiment reporting for business teams.</p>
+            <div class="card bg-light border-0 rounded-4 p-4 mb-4">
+              <h2 class="h5 fw-semibold mb-2">Coming Soon</h2>
+              <p class="text-muted mb-0">The bulk workflow will soon make it easy to analyze large datasets with a polished upload experience and downloadable insights.</p>
+            </div>
+            <a href="{{ url_for('main.index') }}" class="btn btn-primary rounded-pill px-4">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

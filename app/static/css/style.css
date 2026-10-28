@@ -1,0 +1,242 @@
+:root {
+  --primary-blue: #2563eb;
+  --accent-cyan: #06b6d4;
+  --success-green: #10b981;
+  --text-dark: #0f172a;
+  --text-muted: #64748b;
+  --surface: #f8fbff;
+  --border: #e2e8f0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  background-color: #ffffff;
+}
+
+img {
+  max-width: 100%;
+}
+
+.navbar {
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.navbar.scrolled {
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+}
+
+.navbar-brand {
+  letter-spacing: -0.02em;
+}
+
+.nav-link {
+  color: var(--text-dark) !important;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: var(--primary-blue) !important;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+  border: none;
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.2);
+}
+
+.btn-outline-primary {
+  color: var(--primary-blue);
+  border-color: var(--primary-blue);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-blue);
+  color: #fff;
+}
+
+.hero-section {
+  padding-top: 4rem;
+  padding-bottom: 5rem;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.04), rgba(6, 182, 212, 0.05));
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--primary-blue);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.hero-copy {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 620px;
+}
+
+.dashboard-card {
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+}
+
+.mini-card {
+  background: var(--surface);
+  border-radius: 1rem;
+  padding: 1rem;
+  min-height: 120px;
+  border: 1px solid var(--border);
+}
+
+.metric-label {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.metric-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.section-alt {
+  background-color: var(--surface);
+}
+
+.section-heading {
+  max-width: 700px;
+  margin: 0 auto 2rem;
+}
+
+.feature-card,
+.workflow-step,
+.about-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 1.2rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.feature-card {
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.icon-box {
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: #fff;
+  font-size: 1.35rem;
+  background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+}
+
+.icon-box-sm {
+  width: 42px;
+  height: 42px;
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.demo-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 1.3rem;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.06);
+  height: 100%;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.workflow-step {
+  padding: 1.25rem 1rem;
+  text-align: center;
+}
+
+.workflow-arrow {
+  font-size: 1.4rem;
+  color: var(--primary-blue);
+}
+
+.footer-section {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+.footer-link {
+  color: #cbd5e1;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: #ffffff;
+}
+
+.analysis-textarea {
+  min-height: 210px;
+  resize: vertical;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.analysis-textarea:focus {
+  border-color: rgba(37, 99, 235, 0.45);
+  box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.15);
+}
+
+.analysis-form-actions {
+  margin-top: 0.35rem;
+}
+
+.analysis-result-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.analysis-result-body {
+  min-height: 220px;
+}
+
+.analysis-placeholder {
+  border: 1px dashed var(--border);
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.04), rgba(6, 182, 212, 0.04));
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.copy-cleaned-btn {
+  white-space: nowrap;
+}
+
+@media (max-width: 991px) {
+  .hero-section {
+    padding-top: 2.5rem;
+  }
+}

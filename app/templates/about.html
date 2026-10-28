@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow-sm border-0 rounded-4">
+          <div class="card-body p-4 p-lg-5 text-center">
+            <span class="badge rounded-pill bg-primary-subtle text-primary mb-3">About SentiScope</span>
+            <h1 class="h3 fw-bold mb-3">Built for Modern Sentiment Analysis</h1>
+            <p class="text-muted mb-4">SentiScope is a polished Flask application that brings together a clean user experience and a dependable NLP sentiment workflow for reviews and feedback.</p>
+            <div class="card bg-light border-0 rounded-4 p-4 mb-4">
+              <h2 class="h5 fw-semibold mb-2">What the app offers</h2>
+              <p class="text-muted mb-0">The experience currently includes a streamlined review-analysis flow and a professional landing page, with additional product sections being expanded over time.</p>
+            </div>
+            <a href="{{ url_for('main.index') }}" class="btn btn-primary rounded-pill px-4">Back to Home</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

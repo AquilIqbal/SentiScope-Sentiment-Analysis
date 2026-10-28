@@ -1,0 +1,235 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero-section" id="home">
+  <div class="container py-5">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <div class="hero-badge">
+          <i class="bi bi-stars me-2"></i>
+          AI-powered customer intelligence
+        </div>
+        <h1 class="hero-title fw-bold mb-3">Understand Customer Opinions with AI</h1>
+        <p class="hero-copy mb-4">Analyze customer reviews individually or in bulk using NLP-powered Sentiment Analysis and transform them into actionable business insights.</p>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="#analysis" class="btn btn-primary btn-lg rounded-pill px-4">Analyze Review</a>
+          <a href="#bulk" class="btn btn-outline-primary btn-lg rounded-pill px-4">Upload CSV</a>
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="dashboard-card p-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+              <h5 class="fw-semibold mb-1">Review Insights</h5>
+              <p class="text-muted small mb-0">Live analytics overview</p>
+            </div>
+            <span class="badge bg-success-subtle text-success">+24.8%</span>
+          </div>
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="mini-card">
+                <div class="metric-label">Positive</div>
+                <div class="metric-value">68%</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mini-card">
+                <div class="metric-label">Negative</div>
+                <div class="metric-value">22%</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mini-card">
+                <div class="metric-label">Neutral</div>
+                <div class="metric-value">10%</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mini-card">
+                <div class="metric-label">Confidence</div>
+                <div class="metric-value">0.91</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" id="demo-preview">
+  <div class="container">
+    <div class="section-heading text-center">
+      <h2 class="fw-bold mb-3">Experience SentiScope</h2>
+      <p class="text-muted">See how customer reviews are transformed into meaningful business insights.</p>
+    </div>
+    <div class="row g-4 align-items-stretch">
+      <div class="col-lg-6">
+        <div class="demo-card p-4 p-lg-5 fade-in">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <div class="icon-box icon-box-sm"><i class="bi bi-pencil-square"></i></div>
+            <h3 class="h5 fw-semibold mb-0">Try a Sample Review</h3>
+          </div>
+          <label class="form-label text-muted" for="sample-review">Sample review</label>
+          <textarea class="form-control" id="sample-review" rows="6" readonly>The laptop performance is amazing but the battery life is disappointing.</textarea>
+          <button class="btn btn-primary rounded-pill mt-3" type="button" disabled>Analyze Review</button>
+          <p class="text-muted small mt-3 mb-0">This is a visual demonstration. Live AI analysis will be available in the Single Review Analysis page.</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="demo-card p-4 p-lg-5 fade-in">
+          <div class="d-flex align-items-center gap-2 mb-4">
+            <div class="icon-box icon-box-sm"><i class="bi bi-graph-up-arrow"></i></div>
+            <h3 class="h5 fw-semibold mb-0">Analysis Preview</h3>
+          </div>
+          <div class="row g-3 mb-3">
+            <div class="col-sm-6">
+              <div class="mini-card">
+                <div class="metric-label">Sentiment</div>
+                <div class="metric-value text-success"><i class="bi bi-emoji-smile me-2"></i>Positive</div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="mini-card">
+                <div class="metric-label">Confidence</div>
+                <div class="metric-value">91%</div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <h6 class="fw-semibold mb-2">Positive Keywords</h6>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="badge rounded-pill bg-primary-subtle text-primary">performance</span>
+              <span class="badge rounded-pill bg-primary-subtle text-primary">amazing</span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <h6 class="fw-semibold mb-2">Negative Keywords</h6>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="badge rounded-pill bg-danger-subtle text-danger">battery</span>
+              <span class="badge rounded-pill bg-danger-subtle text-danger">disappointing</span>
+            </div>
+          </div>
+          <div class="mb-3">
+            <h6 class="fw-semibold mb-2">AI Insight</h6>
+            <p class="text-muted mb-0">Customers appreciate the laptop's performance but repeatedly express concerns about battery life.</p>
+          </div>
+          <div>
+            <h6 class="fw-semibold mb-2">Business Recommendation</h6>
+            <p class="text-muted mb-0">Improving battery performance could significantly increase customer satisfaction.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" id="analysis">
+  <div class="container">
+    <div class="section-heading text-center">
+      <h2 class="fw-bold mb-3">Core capabilities for modern feedback analysis</h2>
+      <p class="text-muted">Move from raw reviews to insight-rich reporting with a streamlined experience designed for product and business teams.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <a href="{{ url_for('analysis.single_analysis') }}" class="text-decoration-none text-dark">
+          <div class="feature-card h-100">
+            <div class="icon-box"><i class="bi bi-chat-left-text"></i></div>
+            <h4 class="h5 fw-semibold mb-2">Single Review Analysis</h4>
+            <p class="text-muted mb-0">Analyze a single review instantly to explore tone, confidence, and key sentiment signals.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-3" id="bulk">
+        <a href="{{ url_for('main.bulk_analysis') }}" class="text-decoration-none text-dark">
+          <div class="feature-card h-100">
+            <div class="icon-box"><i class="bi bi-file-earmark-spreadsheet"></i></div>
+            <h4 class="h5 fw-semibold mb-2">Bulk CSV Analysis</h4>
+            <p class="text-muted mb-0">Upload large datasets and discover sentiment patterns across hundreds of customer comments.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-3" id="dashboard">
+        <a href="{{ url_for('main.dashboard') }}" class="text-decoration-none text-dark">
+          <div class="feature-card h-100">
+            <div class="icon-box"><i class="bi bi-bar-chart-line"></i></div>
+            <h4 class="h5 fw-semibold mb-2">Interactive Dashboard</h4>
+            <p class="text-muted mb-0">Visualize trends, sentiment distributions, and business-relevant highlights in a modern dashboard.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <a href="{{ url_for('main.insights') }}" class="text-decoration-none text-dark">
+          <div class="feature-card h-100">
+            <div class="icon-box"><i class="bi bi-lightbulb"></i></div>
+            <h4 class="h5 fw-semibold mb-2">Business Insights</h4>
+            <p class="text-muted mb-0">Turn analysis results into recommendations that support product, customer success, and operations.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 section-alt">
+  <div class="container">
+    <div class="section-heading text-center">
+      <h2 class="fw-bold mb-3">How it works</h2>
+      <p class="text-muted">A simple pipeline that turns raw feedback into meaningful insights.</p>
+    </div>
+    <div class="row justify-content-center align-items-center g-3">
+      <div class="col-12 col-md-2">
+        <div class="workflow-step">
+          <h5 class="fw-semibold mb-1">Review</h5>
+          <p class="text-muted small mb-0">Customer feedback input</p>
+        </div>
+      </div>
+      <div class="col-auto workflow-arrow"><i class="bi bi-arrow-down"></i></div>
+      <div class="col-12 col-md-2">
+        <div class="workflow-step">
+          <h5 class="fw-semibold mb-1">NLP</h5>
+          <p class="text-muted small mb-0">Text preprocessing</p>
+        </div>
+      </div>
+      <div class="col-auto workflow-arrow"><i class="bi bi-arrow-down"></i></div>
+      <div class="col-12 col-md-2">
+        <div class="workflow-step">
+          <h5 class="fw-semibold mb-1">Analysis</h5>
+          <p class="text-muted small mb-0">Sentiment scoring</p>
+        </div>
+      </div>
+      <div class="col-auto workflow-arrow"><i class="bi bi-arrow-down"></i></div>
+      <div class="col-12 col-md-2">
+        <div class="workflow-step">
+          <h5 class="fw-semibold mb-1">Insights</h5>
+          <p class="text-muted small mb-0">Dashboard and reports</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5" id="about">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6">
+        <div class="about-card p-4 p-lg-5">
+          <h2 class="fw-bold mb-3">Built for intelligent decision-making</h2>
+          <p class="text-muted">SentiScope combines NLP and sentiment analysis to help teams understand customer experience with clarity and confidence.</p>
+          <ul class="list-unstyled text-muted">
+            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Professional analytics experience</li>
+            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Scalable for single and bulk review workflows</li>
+            <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Designed for academic and professional use</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="about-card p-4 p-lg-5">
+          <h3 class="fw-semibold mb-3">Why SentiScope?</h3>
+          <p class="text-muted mb-0">The platform is designed to transform feedback into actionable intelligence, making it easier to identify trends, interpret sentiment, and support smarter business decisions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

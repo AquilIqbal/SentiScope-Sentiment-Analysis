@@ -1,0 +1,141 @@
+  {% extends 'base.html' %}
+
+  {% block content %}
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4 align-items-stretch">
+        <div class="col-lg-6">
+          <div class="card shadow-sm border-0 rounded-4 h-100">
+            <div class="card-body p-4 p-lg-5">
+              <div class="d-flex align-items-center gap-2 mb-3">
+                <div class="icon-box icon-box-sm"><i class="bi bi-chat-left-text"></i></div>
+                <h2 class="h4 mb-0">Single Review Analysis</h2>
+              </div>
+              <p class="text-muted">Enter a customer review to receive a sentiment prediction and confidence score.</p>
+              <form id="analysisForm" method="post" novalidate>
+                <div class="mb-3">
+                  <label for="review" class="form-label">Customer Review</label>
+                  <textarea class="form-control analysis-textarea" id="review" name="review" rows="8" maxlength="500" placeholder="Type a review here...">{{ request.form.get('review', '') }}</textarea>
+                  <div class="d-flex justify-content-between align-items-center mt-2">
+                    <div class="form-text">Share a realistic customer experience to see how the model interprets it.</div>
+                    <span id="charCounter" class="form-text text-muted">0 / 500</span>
+                  </div>
+                </div>
+                <div class="d-flex flex-wrap gap-2 analysis-form-actions">
+                  <button type="submit" id="analyzeButton" class="btn btn-primary rounded-pill px-4">
+                    <span class="button-label">Analyze Review</span>
+                    <span class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                  </button>
+                  <button type="button" id="clearButton" class="btn btn-outline-secondary rounded-pill px-4">Clear</button>
+                  <button type="button" id="exampleButton" class="btn btn-outline-primary rounded-pill px-4">Try Example</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card shadow-sm border-0 rounded-4 h-100 analysis-result-card" id="resultCard" data-success-result="{{ 'true' if result is not none and result.success else 'false' }}">
+            <div class="card-body p-4 p-lg-5">
+              <div class="d-flex align-items-center justify-content-between mb-3">
+                <h3 class="h5 mb-0">Result</h3>
+                {% if result is not none and result.success %}
+                  <span class="badge rounded-pill {{ 'bg-success-subtle text-success' if result.sentiment|lower == 'positive' else 'bg-danger-subtle text-danger' if result.sentiment|lower == 'negative' else 'bg-warning-subtle text-warning' }}">
+                    <i class="bi {{ 'bi-emoji-smile' if result.sentiment|lower == 'positive' else 'bi-emoji-frown' if result.sentiment|lower == 'negative' else 'bi-emoji-expressionless' }} me-1"></i>
+                    {{ result.sentiment }}
+                  </span>
+                {% endif %}
+              </div>
+
+              <div id="resultContent" class="analysis-result-body" aria-live="polite">
+                {% if result is not none %}
+                  {% if result.success %}
+                    {% if result.sentiment|lower == 'positive' %}
+                      {% set badge_class = 'bg-success-subtle text-success' %}
+                      {% set badge_icon = 'bi-emoji-smile' %}
+                      {% set progress_class = 'bg-success' if result.confidence >= 90 else 'bg-primary' if result.confidence >= 70 else 'bg-warning' if result.confidence >= 50 else 'bg-danger' %}
+                      {% set confidence_text_class = 'text-success' if result.confidence >= 90 else 'text-primary' if result.confidence >= 70 else 'text-warning' if result.confidence >= 50 else 'text-danger' %}
+                      {% set confidence_label = 'Very High Confidence' if result.confidence >= 90 else 'High Confidence' if result.confidence >= 70 else 'Medium Confidence' if result.confidence >= 50 else 'Low Confidence' %}
+                      {% set interpretation = 'The model is highly confident that this review reflects a positive customer experience.' %}
+                    {% elif result.sentiment|lower == 'negative' %}
+                      {% set badge_class = 'bg-danger-subtle text-danger' %}
+                      {% set badge_icon = 'bi-emoji-frown' %}
+                      {% set progress_class = 'bg-success' if result.confidence >= 90 else 'bg-primary' if result.confidence >= 70 else 'bg-warning' if result.confidence >= 50 else 'bg-danger' %}
+                      {% set confidence_text_class = 'text-success' if result.confidence >= 90 else 'text-primary' if result.confidence >= 70 else 'text-warning' if result.confidence >= 50 else 'text-danger' %}
+                      {% set confidence_label = 'Very High Confidence' if result.confidence >= 90 else 'High Confidence' if result.confidence >= 70 else 'Medium Confidence' if result.confidence >= 50 else 'Low Confidence' %}
+                      {% set interpretation = 'The model is highly confident that this review reflects a negative customer experience.' %}
+                    {% else %}
+                      {% set badge_class = 'bg-warning-subtle text-warning' %}
+                      {% set badge_icon = 'bi-emoji-expressionless' %}
+                      {% set progress_class = 'bg-success' if result.confidence >= 90 else 'bg-primary' if result.confidence >= 70 else 'bg-warning' if result.confidence >= 50 else 'bg-danger' %}
+                      {% set confidence_text_class = 'text-success' if result.confidence >= 90 else 'text-primary' if result.confidence >= 70 else 'text-warning' if result.confidence >= 50 else 'text-danger' %}
+                      {% set confidence_label = 'Low Confidence (Neutral)' %}
+                      {% set interpretation = 'The review expresses both positive and negative aspects, making the overall sentiment uncertain. Therefore, it is classified as Neutral.' %}
+                    {% endif %}
+
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+                      <span class="badge rounded-pill {{ badge_class }} px-3 py-2">
+                        <i class="bi {{ badge_icon }} me-2"></i>
+                        {{ result.sentiment }}
+                      </span>
+                      <span class="text-muted small">{{ 'Low-confidence prediction' if result.sentiment|lower == 'neutral' else 'Predicted by the trained model' }}</span>
+                    </div>
+
+                    <div class="border rounded-3 bg-light p-3 mb-3">
+                      <div class="d-flex flex-wrap justify-content-between align-items-start gap-2">
+                        <div class="flex-grow-1">
+                          <small class="text-uppercase fw-semibold text-muted d-block mb-2">Cleaned Review</small>
+                          <p class="mb-0" id="cleanedReviewText">{{ result.cleaned_review }}</p>
+                        </div>
+                        <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill copy-cleaned-btn" data-copy-target="cleanedReviewText">
+                          <i class="bi bi-clipboard me-1"></i> Copy
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="mt-3">
+                      <div class="d-flex justify-content-between mb-2">
+                        <span class="fw-semibold">Confidence</span>
+                        <span class="fw-semibold {{ confidence_text_class }}">{{ result.confidence }}%</span>
+                      </div>
+                      <div class="progress rounded-pill" style="height: 12px;">
+                        <div class="progress-bar {{ progress_class }}" role="progressbar" style="width: {{ result.confidence }}%;" aria-valuenow="{{ result.confidence }}" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center mt-2">
+                        <small class="text-muted">{{ confidence_label }}</small>
+                        <small class="text-muted">{{ result.confidence }} / 100</small>
+                      </div>
+                    </div>
+
+                    <div class="card border-0 rounded-4 bg-primary-subtle p-3 mt-4">
+                      <div class="d-flex align-items-center gap-2 mb-2">
+                        <i class="bi bi-lightbulb"></i>
+                        <h4 class="h6 mb-0">Model Interpretation</h4>
+                      </div>
+                      <p class="mb-0 small text-muted">{{ interpretation }}</p>
+                    </div>
+                  {% else %}
+                    <div class="alert alert-warning rounded-4 border-0 shadow-sm" role="alert">
+                      <div class="d-flex gap-2">
+                        <i class="bi bi-exclamation-triangle-fill mt-1"></i>
+                        <div>
+                          <h4 class="h6 fw-semibold mb-1">Review Needed</h4>
+                          <p class="mb-0">{{ result.message }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                {% else %}
+                  <div class="text-center py-4 px-2 analysis-placeholder">
+                    <div class="icon-box icon-box-sm mx-auto mb-3"><i class="bi bi-clipboard-check"></i></div>
+                    <h4 class="h6 fw-semibold mb-2">Your analysis will appear here</h4>
+                    <p class="text-muted mb-0">Submit a review to see the predicted sentiment, confidence score, cleaned text, and a concise interpretation.</p>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {% endblock %}
